@@ -18,6 +18,11 @@ export class VillageDto {
   })
   name: string;
 
+  @Expose({ name: 'charactersCount' })
+  getCharactersCount(): number {
+    return this.characters.length ?? 0;
+  }
+
   @Expose()
   @ApiProperty({ type: [Number], required: false })
   characters?: number[];
