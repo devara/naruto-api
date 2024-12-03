@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { IsOptional } from 'class-validator';
 import { WrapperType } from 'src/common/types/types';
 import {
@@ -7,6 +7,7 @@ import {
   StringField,
 } from 'src/decorators/field.decorator';
 
+@Exclude()
 export class CharacterDto {
   @Expose()
   @NumberField({
@@ -53,6 +54,7 @@ export class CharacterDto {
   voiceActors?: WrapperType<CharacterVoiceActorDto>;
 }
 
+@Exclude()
 export class CharacterPersonalDto {
   @Expose()
   @StringField({ required: false })

@@ -2,6 +2,7 @@ import { applyDecorators } from '@nestjs/common';
 import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
   IsDefined,
   IsInt,
@@ -18,7 +19,12 @@ import {
   ValidateNested,
   ValidationOptions,
 } from 'class-validator';
-import { ToBoolean, ToLowerCase, ToUpperCase } from './transform.decorator';
+import {
+  ToBoolean,
+  ToLowerCase,
+  ToSplit,
+  ToUpperCase,
+} from './transform.decorator';
 import { Constructor } from 'src/common/types/types';
 
 interface IFieldOptions {
@@ -176,6 +182,16 @@ export function ClassField<TClass extends Constructor>(
       }),
     );
   }
+
+  return applyDecorators(...decorators);
+}
+
+export function StringArrayField(
+  options: Omit<ApiPropertyOptions, 'type'> & IStringFieldOptions = {},
+): PropertyDecorator {
+  const decorators = [IsArray(), StringField({ each: true, ...options })];
+
+  decorators.push(ToSplit());
 
   return applyDecorators(...decorators);
 }

@@ -74,3 +74,13 @@ export function ToUpperCase(): PropertyDecorator {
     },
   );
 }
+
+export function ToSplit(): PropertyDecorator {
+  return Transform(({ value }) => {
+    if (value) {
+      if (typeof value === 'object') return value;
+      if (typeof value === 'string')
+        return value.split(',').filter((val) => val);
+    }
+  });
+}

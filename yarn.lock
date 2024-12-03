@@ -1242,6 +1242,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/throttler@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@nestjs/throttler@npm:6.2.1"
+  peerDependencies:
+    "@nestjs/common": ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+    "@nestjs/core": ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+    reflect-metadata: ^0.1.13 || ^0.2.0
+  checksum: 10/4fc05b62f4a115683e3f4072033c1dde5010a9390ee8c6df396a29e90a2599dc18b5c921c2a2958473f7bb66a8336ae014b969c0ff82c2d3b6869b028cb361ee
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -5532,6 +5543,7 @@ __metadata:
     "@nestjs/schematics": "npm:^10.0.0"
     "@nestjs/swagger": "npm:^8.0.7"
     "@nestjs/testing": "npm:^10.0.0"
+    "@nestjs/throttler": "npm:^6.2.1"
     "@types/express": "npm:^5.0.0"
     "@types/jest": "npm:^29.5.2"
     "@types/node": "npm:^20.3.1"
