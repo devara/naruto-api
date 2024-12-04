@@ -4,7 +4,7 @@ import {
   MongooseModuleOptions,
   MongooseOptionsFactory,
 } from '@nestjs/mongoose';
-import { AvailableConfigType } from '../config/config.type';
+import { AvailableConfigType } from '@/config/config.type';
 
 @Injectable()
 export class MongooseService implements MongooseOptionsFactory {
