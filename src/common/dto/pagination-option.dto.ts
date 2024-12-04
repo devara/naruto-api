@@ -2,8 +2,8 @@ import { Transform } from 'class-transformer';
 import {
   DEFAULT_CURRENT_PAGE,
   DEFAULT_PER_PAGE,
-} from 'src/constants/app.constant';
-import { NumberField } from 'src/decorators/field.decorator';
+} from '@/constants/app.constant';
+import { NumberField } from '@/decorators/field.decorator';
 
 export class PaginationOptionDto {
   @Transform(({ value }) => parseInt(value))

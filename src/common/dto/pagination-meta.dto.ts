@@ -1,6 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { PaginationOptionDto } from './pagination-option.dto';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class PaginationMetaDto {
   @Expose()

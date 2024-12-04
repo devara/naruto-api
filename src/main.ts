@@ -14,9 +14,9 @@ import {
 import compression from '@fastify/compress';
 import helmet from '@fastify/helmet';
 import fastifyCsrf from '@fastify/csrf-protection';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { AvailableConfigType } from './config/config.type';
+import { AvailableConfigType } from '@/config/config.type';
+import SwaggerSetup from '@/config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -28,13 +28,7 @@ async function bootstrap() {
   );
   const configService = app.get(ConfigService<AvailableConfigType>);
 
-  const {
-    name: appName,
-    url: appUrl,
-    version: appVersion,
-    apiPrefix,
-    port,
-  } = configService.getOrThrow('app', { infer: true });
+  const { apiPrefix, port } = configService.getOrThrow('app', { infer: true });
 
   await app.register(helmet);
   await app.register(fastifyCsrf);
@@ -60,15 +54,7 @@ async function bootstrap() {
     }),
   );
 
-  const swaggerConfig = new DocumentBuilder()
-    .setTitle(appName)
-    .setDescription('Iki API isine data naruto tukang ceramah no jutsu')
-    .setVersion(appVersion)
-    .addServer(appUrl, 'Development')
-    .build();
-
-  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, swaggerDocument);
+  SwaggerSetup(app);
 
   await app.listen(port ?? 3000);
 }

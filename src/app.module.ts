@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AllConfigModule } from './config/config.module';
-import { DatabaseMongooseModule } from './database/db.mongoose.module';
-import { ApiModule } from './api/api.module';
-import { BaseModule } from './api/base/base.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AllConfigModule } from '@/config/config.module';
+import { DatabaseMongooseModule } from '@/database/db.mongoose.module';
+import { BaseModule } from '@/app/base/base.module';
+import { ApiModule } from '@/app/api.module';
 
 @Module({
   imports: [
