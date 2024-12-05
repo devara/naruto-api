@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { plainToInstance } from 'class-transformer';
+import { BaseService } from '@/abstracts/base.service';
 import {
   DEFAULT_CURRENT_PAGE,
   DEFAULT_PER_PAGE,
@@ -22,25 +23,13 @@ interface FindOptions {
 }
 
 @Injectable()
-export class CharacterService {
-  constructor(@InjectModel(Character.name) private model: Model<Character>) {}
+export class CharacterService extends BaseService<Character> {
+  constructor(@InjectModel(Character.name) model: Model<Character>) {
+    super(model);
+  }
 
   async findAll(params: CharacterListRequestDto) {
     return this.findCharacters({ params });
-  }
-
-  async findOne(id: number, params: CharacterFieldRequestDto) {
-    const { fields } = params;
-
-    const character = await this.model
-      .findOne({ id })
-      .select(getExcludedFields(fields ?? []))
-      .lean();
-
-    if (!character)
-      throw new HttpException('Character Not Found', HttpStatus.NOT_FOUND);
-
-    return plainToInstance(CharacterDto, character);
   }
 
   async findCharacters(options: FindOptions = {}) {
@@ -51,18 +40,34 @@ export class CharacterService {
     } = options.params;
 
     const [count, characters] = await Promise.all([
-      await this.model.countDocuments(options.query).lean(),
-      await this.model
-        .find(options.query)
-        .select(getExcludedFields(fields ?? []))
-        .limit(per_page)
-        .skip(per_page * (page - 1))
-        .lean(),
+      await this.count({ filter: options.query }),
+      await this.find({
+        filter: options.query,
+        selects: getExcludedFields(fields ?? []),
+        options: {
+          limit: per_page,
+          skip: per_page * (page - 1),
+        },
+      }),
     ]);
 
     return new PaginationDto(
       plainToInstance(CharacterDto, characters),
       new PaginationMetaDto(count, options.params),
     );
+  }
+
+  async findCharacter(id: number, params: CharacterFieldRequestDto) {
+    const { fields } = params;
+
+    const character = await this.find({
+      filter: { id },
+      selects: getExcludedFields(fields ?? []),
+    });
+
+    if (!character)
+      throw new HttpException('Character Not Found', HttpStatus.NOT_FOUND);
+
+    return plainToInstance(CharacterDto, character);
   }
 }

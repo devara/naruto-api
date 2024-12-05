@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
+import { BaseService } from '@/abstracts/base.service';
 import {
   DEFAULT_CURRENT_PAGE,
   DEFAULT_PER_PAGE,
@@ -15,22 +16,25 @@ import { CharacterService } from '../character/character.service';
 import { CharacterListRequestDto } from '../character/dto/character.req.dto';
 
 @Injectable()
-export class ClanService {
+export class ClanService extends BaseService<Clan> {
   constructor(
-    @InjectModel(Clan.name) private model: Model<Clan>,
+    @InjectModel(Clan.name) model: Model<Clan>,
     private readonly characterService: CharacterService,
-  ) {}
+  ) {
+    super(model);
+  }
 
-  async findAll(params: ClanListRequestDto) {
+  async findClans(params: ClanListRequestDto) {
     const { page = DEFAULT_CURRENT_PAGE, per_page = DEFAULT_PER_PAGE } = params;
 
     const [count, clans] = await Promise.all([
-      await this.model.countDocuments().lean(),
-      await this.model
-        .find()
-        .limit(per_page)
-        .skip(per_page * (page - 1))
-        .lean(),
+      await this.count(),
+      await this.find({
+        options: {
+          limit: per_page,
+          skip: per_page * (page - 1),
+        },
+      }),
     ]);
 
     return new PaginationDto<ClanDto>(
@@ -39,22 +43,16 @@ export class ClanService {
     );
   }
 
-  async findOne(id: number) {
-    const clan = await this.findClan(id);
-
-    return instanceToPlain(clan);
-  }
-
   async findClan(id: number) {
-    const clan = await this.model.findOne({ id }).lean();
-
+    const clan = await this.findOne({ id });
     if (!clan) throw new HttpException('Clan Not Found', HttpStatus.NOT_FOUND);
 
-    return plainToInstance(ClanDto, clan);
+    return instanceToPlain(plainToInstance(ClanDto, clan));
   }
 
-  async findCharacters(id: number, params: CharacterListRequestDto) {
-    const clan = await this.findClan(id);
+  async findClanCharacters(id: number, params: CharacterListRequestDto) {
+    const clan = await this.findOne({ id });
+    if (!clan) throw new HttpException('Clan Not Found', HttpStatus.NOT_FOUND);
 
     return this.characterService.findCharacters({
       query: {

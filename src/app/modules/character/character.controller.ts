@@ -33,6 +33,6 @@ export class CharacterController {
     @Param('id', ParseIntPipe) id: number,
     @Query() params: CharacterFieldRequestDto,
   ) {
-    return this.characterService.findOne(id, params);
+    return this.characterService.findCharacter(id, params);
   }
 }

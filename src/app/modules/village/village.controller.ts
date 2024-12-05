@@ -16,8 +16,8 @@ export class VillageController {
     isPaginated: true,
     summary: 'Get Village List',
   })
-  async getClans(@Query() params: ClanListRequestDto) {
-    return this.villageService.findAll(params);
+  async getVillages(@Query() params: ClanListRequestDto) {
+    return this.villageService.findVillages(params);
   }
 
   @Get('/village/:id')
@@ -25,8 +25,8 @@ export class VillageController {
     type: VillageDto,
     summary: 'Get Village Detail',
   })
-  async getClan(@Param('id', ParseIntPipe) id: number) {
-    return this.villageService.findOne(id);
+  async getVillage(@Param('id', ParseIntPipe) id: number) {
+    return this.villageService.findVillage(id);
   }
 
   @Get('/village/:id/characters')
@@ -39,6 +39,6 @@ export class VillageController {
     @Param('id', ParseIntPipe) id: number,
     @Query() params: VillageDetailRequestDto,
   ) {
-    return this.villageService.findCharacters(id, params);
+    return this.villageService.findVillageCharacters(id, params);
   }
 }
