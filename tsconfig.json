@@ -30,5 +30,6 @@
       "@/guards/*": ["src/core/guards/*"],
       "@/utils/*": ["src/core/utils/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "dist", "coverage", "logs", "data"]
 }
