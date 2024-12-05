@@ -16,7 +16,7 @@ export class ClanController {
     summary: 'Get Clan List',
   })
   async getClans(@Query() params: ClanListRequestDto) {
-    return this.clanService.findAll(params);
+    return this.clanService.findClans(params);
   }
 
   @Get('/clan/:id')
@@ -25,7 +25,7 @@ export class ClanController {
     summary: 'Get Clan Detail',
   })
   async getClan(@Param('id', ParseIntPipe) id: number) {
-    return this.clanService.findOne(id);
+    return this.clanService.findClan(id);
   }
 
   @Get('/clan/:id/characters')
@@ -38,6 +38,6 @@ export class ClanController {
     @Param('id', ParseIntPipe) id: number,
     @Query() params: ClanDetailRequestDto,
   ) {
-    return this.clanService.findCharacters(id, params);
+    return this.clanService.findClanCharacters(id, params);
   }
 }

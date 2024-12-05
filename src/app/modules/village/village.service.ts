@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
+import { BaseService } from '@/abstracts/base.service';
 import {
   DEFAULT_CURRENT_PAGE,
   DEFAULT_PER_PAGE,
@@ -15,22 +16,25 @@ import { ClanListRequestDto } from '../clan/dto/clan.req.dto';
 import { CharacterListRequestDto } from '../character/dto/character.req.dto';
 
 @Injectable()
-export class VillageService {
+export class VillageService extends BaseService<Village> {
   constructor(
-    @InjectModel(Village.name) private model: Model<Village>,
+    @InjectModel(Village.name) model: Model<Village>,
     private readonly characterService: CharacterService,
-  ) {}
+  ) {
+    super(model);
+  }
 
-  async findAll(params: ClanListRequestDto) {
+  async findVillages(params: ClanListRequestDto) {
     const { page = DEFAULT_CURRENT_PAGE, per_page = DEFAULT_PER_PAGE } = params;
 
     const [count, villages] = await Promise.all([
-      await this.model.countDocuments().lean(),
-      await this.model
-        .find()
-        .limit(per_page)
-        .skip(per_page * (page - 1))
-        .lean(),
+      await this.count(),
+      await this.find({
+        options: {
+          limit: per_page,
+          skip: per_page * (page - 1),
+        },
+      }),
     ]);
 
     return new PaginationDto<VillageDto>(
@@ -39,23 +43,18 @@ export class VillageService {
     );
   }
 
-  async findOne(id: number) {
-    const village = await this.findVillage(id);
+  async findVillage(id: number) {
+    const village = await this.findOne({ id });
+    if (!village)
+      throw new HttpException('Village Not Found', HttpStatus.NOT_FOUND);
 
     return instanceToPlain(village);
   }
 
-  async findVillage(id: number) {
-    const village = await this.model.findOne({ id }).lean();
-
+  async findVillageCharacters(id: number, params: CharacterListRequestDto) {
+    const village = await this.findOne({ id });
     if (!village)
       throw new HttpException('Village Not Found', HttpStatus.NOT_FOUND);
-
-    return plainToInstance(VillageDto, village);
-  }
-
-  async findCharacters(id: number, params: CharacterListRequestDto) {
-    const village = await this.findVillage(id);
 
     return this.characterService.findCharacters({
       query: {
