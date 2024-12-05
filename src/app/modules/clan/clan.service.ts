@@ -2,13 +2,13 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
-import { BaseService } from '@/abstracts/base.service';
+import { PaginationMetaDto } from 'src/common/dto/pagination-meta.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 import {
   DEFAULT_CURRENT_PAGE,
   DEFAULT_PER_PAGE,
-} from '@/constants/app.constant';
-import { PaginationDto } from '@/common/dto/pagination.dto';
-import { PaginationMetaDto } from '@/common/dto/pagination-meta.dto';
+} from 'src/constants/app.constant';
+import { BaseService } from 'src/core/abstracts/base.service';
 import { ClanListRequestDto } from './dto/clan.req.dto';
 import { Clan } from './schema/clan.schema';
 import { ClanDto } from './dto/clan.dto';

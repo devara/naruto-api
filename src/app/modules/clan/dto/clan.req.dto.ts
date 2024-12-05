@@ -1,5 +1,5 @@
-import { PaginationOptionDto } from '@/common/dto/pagination-option.dto';
-import { CharacterListRequestDto } from '@/app/modules/character/dto/character.req.dto';
+import { PaginationOptionDto } from 'src/common/dto/pagination-option.dto';
+import { CharacterListRequestDto } from '../../character/dto/character.req.dto';
 
 export class ClanListRequestDto extends PaginationOptionDto {}
 

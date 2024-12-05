@@ -17,19 +17,18 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@/app/*": ["src/app/*"],
-      "@/common/*": ["src/common/*"],
-      "@/config/*": ["src/config/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@/database/*": ["src/database/*"],
-      "@/abstracts/*": ["src/core/abstracts/*"],
-      "@/decorators/*": ["src/core/decorators/*"],
-      "@/exceptions/*": ["src/core/exceptions/*"],
-      "@/filters/*": ["src/core/filters/*"],
-      "@/guards/*": ["src/core/guards/*"],
-      "@/utils/*": ["src/core/utils/*"]
-    }
-  },
-  "exclude": ["node_modules", "dist", "coverage", "logs", "data"]
+    // "paths": {
+    //   "@/app/*": ["src/app/*"],
+    //   "@/common/*": ["src/common/*"],
+    //   "@/config/*": ["src/config/*"],
+    //   "@/constants/*": ["src/constants/*"],
+    //   "@/database/*": ["src/database/*"],
+    //   "@/abstracts/*": ["src/core/abstracts/*"],
+    //   "@/decorators/*": ["src/core/decorators/*"],
+    //   "@/exceptions/*": ["src/core/exceptions/*"],
+    //   "@/filters/*": ["src/core/filters/*"],
+    //   "@/guards/*": ["src/core/guards/*"],
+    //   "@/utils/*": ["src/core/utils/*"]
+    // }
+  }
 }

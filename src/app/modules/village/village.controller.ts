@@ -1,5 +1,5 @@
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
-import { ApiPublicResponse } from '@/decorators/res.decorator';
+import { ApiPublicResponse } from 'src/core/decorators/res.decorator';
 import { ClanListRequestDto } from '../clan/dto/clan.req.dto';
 import { CharacterDto } from '../character/dto/character.dto';
 import { VillageService } from './village.service';

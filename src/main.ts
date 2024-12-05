@@ -15,8 +15,8 @@ import compression from '@fastify/compress';
 import helmet from '@fastify/helmet';
 import fastifyCsrf from '@fastify/csrf-protection';
 import { ConfigService } from '@nestjs/config';
-import { AvailableConfigType } from '@/config/config.type';
-import SwaggerSetup from '@/config/swagger.config';
+import { AvailableConfigType } from './config/config.type';
+import SwaggerSetup from './config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(

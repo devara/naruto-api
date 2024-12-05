@@ -1,12 +1,12 @@
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
-import { PaginationDto } from '@/common/dto/pagination.dto';
-import { ApiPublicResponse } from '@/decorators/res.decorator';
 import { CharacterDto } from './dto/character.dto';
 import { CharacterService } from './character.service';
 import {
   CharacterFieldRequestDto,
   CharacterListRequestDto,
 } from './dto/character.req.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { ApiPublicResponse } from 'src/core/decorators/res.decorator';
 
 @Controller()
 export class CharacterController {

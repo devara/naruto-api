@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, plainToInstance } from 'class-transformer';
-import { NumberField, StringField } from '@/decorators/field.decorator';
-import { CharacterDto } from '@/app/modules/character/dto/character.dto';
+import { NumberField, StringField } from 'src/core/decorators/field.decorator';
+import { CharacterDto } from '../../character/dto/character.dto';
 
 @Exclude()
 export class ClanDto {

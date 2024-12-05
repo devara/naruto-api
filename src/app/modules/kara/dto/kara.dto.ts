@@ -1,3 +1,3 @@
-import { CharacterDto } from '@/app/modules/character/dto/character.dto';
+import { CharacterDto } from '../../character/dto/character.dto';
 
 export class KaraDto extends CharacterDto {}

@@ -2,13 +2,9 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { plainToInstance } from 'class-transformer';
-import { BaseService } from '@/abstracts/base.service';
-import {
-  DEFAULT_CURRENT_PAGE,
-  DEFAULT_PER_PAGE,
-} from '@/constants/app.constant';
-import { PaginationDto } from '@/common/dto/pagination.dto';
-import { PaginationMetaDto } from '@/common/dto/pagination-meta.dto';
+import { BaseService } from 'src/core/abstracts/base.service';
+import { PaginationMetaDto } from 'src/common/dto/pagination-meta.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { Character } from './schema/character.schema';
 import { CharacterDto } from './dto/character.dto';
 import {
@@ -16,6 +12,10 @@ import {
   CharacterListRequestDto,
 } from './dto/character.req.dto';
 import { getExcludedFields } from './character.util';
+import {
+  DEFAULT_CURRENT_PAGE,
+  DEFAULT_PER_PAGE,
+} from 'src/constants/app.constant';
 
 interface FindOptions {
   query?: FilterQuery<Character>;

@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import { AppConfig } from './app.config.type';
 import validateConfig from './validate.config';
-import { Environment, LogService } from '@/constants/app.constant';
+import { Environment, LogService } from 'src/constants/app.constant';
 
 class EnvironmentVariablesValidator {
   @IsEnum(Environment)

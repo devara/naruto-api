@@ -1,9 +1,9 @@
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
-import { ApiPublicResponse } from '@/decorators/res.decorator';
+import { ApiPublicResponse } from 'src/core/decorators/res.decorator';
+import { CharacterDto } from '../character/dto/character.dto';
 import { ClanService } from './clan.service';
 import { ClanDetailRequestDto, ClanListRequestDto } from './dto/clan.req.dto';
 import { ClanDto } from './dto/clan.dto';
-import { CharacterDto } from '@/app/modules/character/dto/character.dto';
 
 @Controller()
 export class ClanController {

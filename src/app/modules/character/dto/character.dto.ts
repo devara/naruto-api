@@ -1,11 +1,11 @@
 import { Exclude, Expose } from 'class-transformer';
 import { IsOptional } from 'class-validator';
-import { WrapperType } from '@/common/types/types';
+import { WrapperType } from 'src/common/types/types';
 import {
-  ClassField,
   NumberField,
   StringField,
-} from '@/decorators/field.decorator';
+  ClassField,
+} from 'src/core/decorators/field.decorator';
 
 @Exclude()
 export class CharacterDto {
