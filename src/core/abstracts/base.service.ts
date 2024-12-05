@@ -28,8 +28,12 @@ export abstract class BaseService<TModel> {
       .lean();
   }
 
-  async findOne(filter: FilterQuery<TModel>, options?: QueryOptions) {
-    return this.model.findOne(filter, null, options).lean();
+  async findOne(
+    filter: FilterQuery<TModel>,
+    selects?: FindParams<TModel>['selects'],
+    options?: QueryOptions,
+  ) {
+    return this.model.findOne(filter, selects, options).lean();
   }
 
   async count(params: FindParams<TModel> = {}) {

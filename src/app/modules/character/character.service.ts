@@ -60,10 +60,10 @@ export class CharacterService extends BaseService<Character> {
   async findCharacter(id: number, params: CharacterFieldRequestDto) {
     const { fields } = params;
 
-    const character = await this.find({
-      filter: { id },
-      selects: getExcludedFields(fields ?? []),
-    });
+    const character = await this.findOne(
+      { id },
+      getExcludedFields(fields ?? []),
+    );
 
     if (!character)
       throw new HttpException('Character Not Found', HttpStatus.NOT_FOUND);
